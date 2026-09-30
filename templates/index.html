@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        EduGenie - AI Learning Assistant
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', path='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="hero">
+
+    <div class="container">
+
+        <div class="badge">
+            AI LEARNING ASSISTANT
+        </div>
+
+        <h1>
+            EduGenie
+        </h1>
+
+        <p>
+            Your intelligent study companion for
+            questions, explanations, quizzes,
+            summaries and personalized learning paths.
+        </p>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+    <!-- Main Card -->
+
+    <section class="card">
+
+
+        <div class="heading-row">
+
+            <div>
+
+                <h2>
+                    Start Learning
+                </h2>
+
+                <p class="muted">
+                    Choose an AI-powered learning tool.
+                </p>
+
+            </div>
+
+
+            <div class="model-badge">
+
+                {{ gemini_model }}
+
+            </div>
+
+        </div>
+
+
+        <!-- Controls -->
+
+        <div class="controls">
+
+
+            <!-- Tool -->
+
+            <div class="field">
+
+                <label for="task">
+                    Learning Tool
+                </label>
+
+                <select id="task">
+
+                    <option value="qa">
+                        Ask a Question
+                    </option>
+
+                    <option value="explain">
+                        Explain a Concept
+                    </option>
+
+                    <option value="quiz">
+                        Generate Quiz
+                    </option>
+
+                    <option value="summarize">
+                        Summarize Text
+                    </option>
+
+                    <option value="learn">
+                        Learning Path
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Quiz Count -->
+
+            <div
+                class="field hidden"
+                id="countField"
+            >
+
+                <label for="count">
+                    Questions
+                </label>
+
+                <input
+                    id="count"
+                    type="number"
+                    min="1"
+                    max="10"
+                    value="5"
+                >
+
+            </div>
+
+
+            <!-- Level -->
+
+            <div
+                class="field hidden"
+                id="levelField"
+            >
+
+                <label for="level">
+                    Level
+                </label>
+
+                <select id="level">
+
+                    <option value="beginner">
+                        Beginner
+                    </option>
+
+                    <option value="intermediate">
+                        Intermediate
+                    </option>
+
+                    <option value="advanced">
+                        Advanced
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Weeks -->
+
+            <div
+                class="field hidden"
+                id="weeksField"
+            >
+
+                <label for="weeks">
+                    Weeks
+                </label>
+
+                <input
+                    id="weeks"
+                    type="number"
+                    min="1"
+                    max="24"
+                    value="4"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Input -->
+
+        <div class="field">
+
+            <label for="inputText">
+                Your Input
+            </label>
+
+            <textarea
+                id="inputText"
+                placeholder="Ask a question or enter your study material..."
+            ></textarea>
+
+        </div>
+
+
+        <!-- Buttons -->
+
+        <div class="buttons">
+
+            <button
+                id="runButton"
+                class="primary"
+            >
+                Generate Result
+            </button>
+
+
+            <button
+                id="clearButton"
+                class="secondary"
+            >
+                Clear
+            </button>
+
+        </div>
+
+
+        <!-- Status -->
+
+        <div
+            id="status"
+            class="status"
+        ></div>
+
+
+    </section>
+
+
+    <!-- =================================================
+         RESULT
+    ================================================== -->
+
+    <section
+        id="resultSection"
+        class="card hidden"
+    >
+
+        <div class="heading-row">
+
+            <h2>
+                EduGenie Result
+            </h2>
+
+            <button
+                id="copyButton"
+                class="secondary small"
+            >
+                Copy
+            </button>
+
+        </div>
+
+
+        <div id="result"></div>
+
+    </section>
+
+
+    <!-- =================================================
+         FEATURES
+    ================================================== -->
+
+    <section class="features">
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💬
+            </div>
+
+            <h3>
+                Q&A
+            </h3>
+
+            <p>
+                Ask academic questions and get
+                clear AI-generated answers.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💡
+            </div>
+
+            <h3>
+                Explain
+            </h3>
+
+            <p>
+                Understand difficult concepts
+                using beginner-friendly explanations.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📝
+            </div>
+
+            <h3>
+                Quiz
+            </h3>
+
+            <p>
+                Generate multiple-choice questions
+                from your study material.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📚
+            </div>
+
+            <h3>
+                Learning Path
+            </h3>
+
+            <p>
+                Build a structured learning journey
+                for any topic.
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="container footer-inner">
+
+        <strong>
+            EduGenie
+        </strong>
+
+        <span>
+            FastAPI + Gemini
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script
+    src="{{ url_for('static', path='app.js') }}"
+></script>
+
+
+</body>
+
+</html>
